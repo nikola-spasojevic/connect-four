@@ -69,14 +69,14 @@ class ConnectFour:
 		# self.choose_colours()
 	
 		while not self._game_over:
-			# Player specifies column index, which is checked and validated.
+			# Ask the player whose tuen it is to choose a column - which is checked and validated
 			col = self.choose_column()
 
-			# Ask for Player 1 input
+			# Insert Player 1's colour in the chosen column
 			if self._turn:
 				self.drop_disk(1, col)
 
-			# Ask for Player 2 input
+			# Insert Player 2's colour in the chosen column
 			else:
 				self.drop_disk(2, col)
 
