@@ -26,12 +26,6 @@ class BoardSetup:
 		print('No more free spaces!\nGAME OVER MAN!!!\n')
 		return True
 
-	def is_winning_move(self):
-		pass
-		# BFS
-		# horizontal_count, vertical_count, diagonal_count
-		# 
-
 	def is_valid_location(self, col):
 		if self.board[0][col]:
 			print('No more space in current column.\n')
