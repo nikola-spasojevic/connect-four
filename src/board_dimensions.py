@@ -6,7 +6,7 @@ class BoardDimensions:
 	def get_dimensions():
 		while True:
 			try:			
-				height, width = map(int, input("Please choose the board dimensions (height and width): \n").split())
+				height, width = map(int, input("Please choose the board dimensions (height and width): \n").replace(',', ' ').split())
 				try:
 					if (height <= 0 or height > BoardDimensions.DIMENSIONS_LIMIT or width <= 0 or width > BoardDimensions.DIMENSIONS_LIMIT):
 						print('Out Of Bounds! Please choose values between {} and {}!\n'.format(1, BoardDimensions.DIMENSIONS_LIMIT))
