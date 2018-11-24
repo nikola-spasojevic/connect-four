@@ -20,7 +20,7 @@ class PlayerSetup:
 	def run(self):
 		to_configure = str(input('Do you want to configure your players?')).strip().lower()
 		
-		if to_configure in self.ACCEPTABLE_ANSWERS:
+		if to_configure in PlayerSetup.ACCEPTABLE_ANSWERS:
 			self.configure_player()
 
 	def get_players(self):

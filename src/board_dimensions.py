@@ -15,6 +15,6 @@ class BoardDimensions:
 				except ValueError:
 						print("Was not a number, please use a valid input.\n")
 			except ValueError:
-				print("2 Dimension Values are expected, please input 2 new valid values.\n")
+				print("2 Dimensional Values are expected, please input 2 new valid values.\n")
 
 		return height, width

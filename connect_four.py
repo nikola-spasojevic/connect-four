@@ -12,3 +12,5 @@ if __name__ == '__main__':
 		connect_four_game = BoardSetup(player_setup.get_players(), height, width)
 		connect_four_game.play()
 		play_again = str(input("Would you like to play again?: \n")).strip().lower()
+
+	print('\nTime to go home...\n')
