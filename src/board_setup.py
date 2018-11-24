@@ -1,18 +1,27 @@
 class BoardSetup:
 
 	def __init__(self, players, height = 5, width = 5):
+		self.players = players
 		self.height = height
 		self.width = width
 		self.board = [[0]*width for _ in range(height)] # initiliase board size to height x width dimensions
 		self._game_over = False
 		self._turn = False
-		self.players = players
 
 	def print_board(self):
-		for row in self.board:
-			print(row)
-		print()
+		s = [[str(e) for e in row] for row in self.board]
+		lens = [max(map(len, col)) for col in zip(*s)]
+		fmt = '\t'.join('{{:{}}}'.format(x) for x in lens)
+		table = [fmt.format(*row) for row in s]
+		print('\n'.join(table))
 
+	def is_board_full(self):
+		for i in range(self.width):
+			if not self.board[0][i]:
+				return False
+
+		print('No more free spaces!\nGAME OVER MAN!!!\n')
+		return True
 
 	def winning_move(self):
 		pass
@@ -43,7 +52,7 @@ class BoardSetup:
 
 	def get_next_open_row(self, col):
 		if self.is_valid_location(col):
-			for r in range(self.height)[::-1]: # range(self.height-1, -1, -1)
+			for r in range(self.height)[::-1]:
 				if not self.board[r][col]:
 					return r
 		else:
@@ -60,19 +69,23 @@ class BoardSetup:
 		self.board[row][col] = colour
 
 	def play(self):
-		# self.choose_colours()
-	
+		# self.format_board()
 		while not self._game_over:
-			# Ask the player whose tuen it is to choose a column - which is checked and validated
+			# Ask the player whose turn it is to choose a column - which is checked and validated
 			col = self.choose_column()
 
 			# Insert Player 1's colour in the chosen column
 			if self._turn:
-				self.drop_disk(1, col)
+				self.drop_disk(self.players[0][1], col)
 
 			# Insert Player 2's colour in the chosen column
 			else:
-				self.drop_disk(2, col)
+				self.drop_disk(self.players[1][1], col)
 
-			self._turn = not self._turn 	# alternate between players
-			self.print_board()	# check status of game
+			# alternate between players
+			self._turn = not self._turn
+			# print game status
+			self.print_board()
+
+			if self.is_board_full():
+				self._game_over = True

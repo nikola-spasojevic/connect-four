@@ -18,11 +18,12 @@ class PlayerSetup:
 		self.player_2 = self.choose_name_colour(self.player_2)
 
 	def run(self):
-		to_configure = str(input('Do you want to configure your players?'))
+		to_configure = str(input('Do you want to configure your players?')).strip().lower()
 		
-		if to_configure.lower() in self.ACCEPTABLE_ANSWERS:
+		if to_configure in self.ACCEPTABLE_ANSWERS:
 			self.configure_player()
 
 	def get_players(self):
-		return (self.player_1, self.player_2) # Returns a tuple containing player 1's config at index 0 and player 2's config at index 1
+		# Returns a tuple containing player 1's config at index 0 and player 2's config at index 1
+		return (self.player_1, self.player_2) 
 
