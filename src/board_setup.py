@@ -1,3 +1,5 @@
+from .winning_move import WinningMove
+
 class BoardSetup:
 
 	def __init__(self, players, height = 5, width = 5):
@@ -24,7 +26,7 @@ class BoardSetup:
 		print('No more free spaces!\nGAME OVER MAN!!!\n')
 		return True
 
-	def winning_move(self):
+	def is_winning_move(self):
 		pass
 		# BFS
 		# horizontal_count, vertical_count, diagonal_count
@@ -59,7 +61,7 @@ class BoardSetup:
 		else:
 			return -1
 
-	def drop_disk(self, colour, col):
+	def drop_disk(self, player, col):
 		while True:
 			row = self.get_next_open_row(col)
 			if row == -1:
@@ -67,7 +69,11 @@ class BoardSetup:
 				col = self.choose_column()
 			else:
 				break
-		self.board[row][col] = colour
+		self.board[row][col] = player[1]
+		
+		if WinningMove.is_win(self.board, row, col):
+			print('\nCongratulations {}!!!\nVictory is yours!!!\n'.format(player[0]))
+			self._game_over = True
 
 	def play(self):
 		while not self._game_over:
@@ -76,11 +82,11 @@ class BoardSetup:
 
 			# Insert Player 1's colour in the chosen column
 			if not self._turn:
-				self.drop_disk(self.players[0][1], col)
+				self.drop_disk(self.players[0], col)
 
 			# Insert Player 2's colour in the chosen column
 			else:
-				self.drop_disk(self.players[1][1], col)
+				self.drop_disk(self.players[1], col)
 
 			# alternate between players
 			self._turn = not self._turn
