@@ -23,7 +23,7 @@ Please read the following instructions on how to install and run the game:
 2.3 You need to input 2 space separated integer values
 2.4 If you choose incorrect values, youll be asked to repeat your input
 
-#NOW THE GAME:
+# NOW THE GAME:
 
 3. Player 1 starts first
 3.1 the program will expect an integer input. the number corresponds to the column index of the pre specified board (0 indexed!!!)
@@ -32,6 +32,6 @@ Please read the following instructions on how to install and run the game:
 6. Once someone connects 4 (vertically, horizontally or diagonally), the program will congratulate you and ask you to play again
 7. inputing y, yes, 1, Y, YES, will forward you configurating a new game
 
-#HAVE FUN!!!
+# HAVE FUN!!!
 
 
