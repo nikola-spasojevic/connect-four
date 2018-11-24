@@ -6,14 +6,15 @@ class BoardSetup:
 		self.width = width
 		self.board = [[0]*width for _ in range(height)] # initiliase board size to height x width dimensions
 		self._game_over = False
-		self._turn = False
+		# Player 1 corresponds to _turn == 0 // Player 2 corresponds to _turn == 1
+		self._turn = False # Player 1 goes first
 
 	def print_board(self):
 		s = [[str(e) for e in row] for row in self.board]
 		lens = [max(map(len, col)) for col in zip(*s)]
 		fmt = '\t'.join('{{:{}}}'.format(x) for x in lens)
 		table = [fmt.format(*row) for row in s]
-		print('\n'.join(table))
+		print('\n'+'\n'.join(table)+'\n')
 
 	def is_board_full(self):
 		for i in range(self.width):
@@ -69,13 +70,12 @@ class BoardSetup:
 		self.board[row][col] = colour
 
 	def play(self):
-		# self.format_board()
 		while not self._game_over:
 			# Ask the player whose turn it is to choose a column - which is checked and validated
 			col = self.choose_column()
 
 			# Insert Player 1's colour in the chosen column
-			if self._turn:
+			if not self._turn:
 				self.drop_disk(self.players[0][1], col)
 
 			# Insert Player 2's colour in the chosen column

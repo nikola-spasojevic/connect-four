@@ -8,8 +8,8 @@ class PlayerSetup:
 		self.run()
 
 	def choose_name_colour(self, player):
-		player_name = input('Please input name for {}: '.format(player[0]))
-		player_colour = input('\nPlease input {}\'s choice of colour: '.format(player_name))
+		player_name = input('Please input name for {}: '.format(player[0])).strip().upper()
+		player_colour = input('\nPlease input {}\'s choice of colour: '.format(player_name)).strip().upper()
 		print()
 		return (player_name, player_colour)
 
