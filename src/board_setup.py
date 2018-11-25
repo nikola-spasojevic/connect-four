@@ -24,10 +24,10 @@ class BoardSetup:
 
 	def get_cell(self, i, j):
 		try:
-			if (i < self.height or i >= 0 or j < self.width or j >= 0):
+			if (i < self.height and i >= 0 and j < self.width and j >= 0):
 				return self.board[i][j]
-		except ValueError:
-					print('Out of Range')		
+		except ValueError: 
+			print('Out of Range')		
 
 	def is_board_full(self):
 		for i in range(self.width):
@@ -77,7 +77,7 @@ class BoardSetup:
 		self.board[row][col] = player.colour
 		
 		if WinningMove.is_win(self.board, row, col):
-			print('\nCongratulations {}!!!\nVictory is yours!!!\n'.format(player[0]))
+			print('\nCongratulations {}!!!\nVictory is yours!!!\n'.format(player.name))
 			self._game_over = True
 
 	def play(self):
