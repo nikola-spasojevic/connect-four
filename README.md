@@ -11,7 +11,6 @@ Please read the following instructions on how to install and run the game:
 3. Go the directory in which the file connect_four.py is being stored
 4. Run the following command: 'python3 connect_four.py'
 5. ENJOY!
-6. PROFIT???
 
 
 # THE RULES:
