@@ -44,15 +44,15 @@ def test_discs_are_dropped_in_separate_columns():
 	for i in range(width):
 		assert board.get_cell(height-1, i) == player.colour
 
-def test_drop_disc_raises_when_board_is_full():	
+def test_get_column_height():
 	player = Player('Player 1', 'BLUE')
 	board = BoardSetup()
 	height, width = board.get_dimensions()
 
-	for _ in range(height):
+	for i in range(height):
 		board.drop_disk(player, 0)
+		assert board.column_counter[0] == i+1
 
-	assert board.get_next_open_row(0) == -1
 
 
 
