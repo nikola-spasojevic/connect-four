@@ -1,8 +1,9 @@
+from .player_setup import Player
 from .winning_move import WinningMove
 
 class BoardSetup:
 
-	def __init__(self, players, height = 5, width = 5):
+	def __init__(self, players = (Player('Player 1', 'RED'), Player('Player 2', 'GREEN')), height = 5, width = 5):
 		self.players = players
 		self.height = height
 		self.width = width
@@ -17,6 +18,16 @@ class BoardSetup:
 		fmt = '\t'.join('{{:{}}}'.format(x) for x in lens)
 		table = [fmt.format(*row) for row in s]
 		print('\n'+'\n'.join(table)+'\n')
+
+	def get_dimensions(self):
+		return (self.height, self.width)
+
+	def get_cell(self, i, j):
+		try:
+			if (i < self.height or i >= 0 or j < self.width or j >= 0):
+				return self.board[i][j]
+		except ValueError:
+					print('Out of Range')		
 
 	def is_board_full(self):
 		for i in range(self.width):
@@ -36,7 +47,7 @@ class BoardSetup:
 	def choose_column(self):
 		# Within this loop we impose that the player must provide a valid input (i.e. an int within the range of the game's board matrix)
 		while True:
-				player_input = input("{}'s Move: ".format(self.players[self._turn][0]))
+				player_input = input("{}'s Move: ".format(self.players[self._turn].name))
 				try:
 					col = int(player_input)
 					if (col >= self.width or col < 0):
@@ -47,7 +58,7 @@ class BoardSetup:
 					print("{} was not a number, please use a valid input.\n".format(player_input))		
 		return col
 
-	def get_next_open_row(self, col):
+	def get_next_open_row(self, col): # TODO: replace with instance variable self.column_counter and keep track of values
 		if self.is_valid_location(col):
 			for r in range(self.height)[::-1]:
 				if not self.board[r][col]:
@@ -63,7 +74,7 @@ class BoardSetup:
 				col = self.choose_column()
 			else:
 				break
-		self.board[row][col] = player[1]
+		self.board[row][col] = player.colour
 		
 		if WinningMove.is_win(self.board, row, col):
 			print('\nCongratulations {}!!!\nVictory is yours!!!\n'.format(player[0]))
