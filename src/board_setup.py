@@ -48,7 +48,7 @@ class BoardSetup:
 						print('Out Of Bounds! Please choose a value between {} and {}!\n'.format(0, self.width-1))
 					else:
 						break
-				except TypeError:
+				except ValueError:
 					print("{} was not a number, please use a valid input.\n".format(player_input))		
 		return col
 
