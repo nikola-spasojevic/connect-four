@@ -2,7 +2,6 @@ import pytest
 from ConnectFour.src.board_setup import BoardSetup
 from ConnectFour.src.player_setup import Player
 
-
 def test_board_starts_empty():
 	board = BoardSetup()
 	height, width = board.get_dimensions()
@@ -53,9 +52,15 @@ def test_get_column_height():
 		board.drop_disk(player, 0)
 		assert board.column_counter[0] == i+1
 
+def test_board_is_full():
+	player = Player('Player 1', 'BLUE')
+	board = BoardSetup()
+	height, width = board.get_dimensions()
 
+	for i in range(height):
+		for _ in range(width):
+			assert board.is_board_full() is False
+			board.drop_disk(player, i)
 
-
-
-
+	assert board.is_board_full() is True
 
