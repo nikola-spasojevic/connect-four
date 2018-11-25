@@ -9,6 +9,7 @@ class BoardSetup:
 		self.width = width
 		self.board = [[0]*width for _ in range(height)] # initiliase board size to height x width dimensions
 		self._game_over = False
+		self.column_counter = [0]*width
 		# Player 1 corresponds to _turn == 0 // Player 2 corresponds to _turn == 1
 		self._turn = False # Player 1 goes first
 
@@ -26,23 +27,16 @@ class BoardSetup:
 		try:
 			if (i < self.height and i >= 0 and j < self.width and j >= 0):
 				return self.board[i][j]
-		except ValueError: 
-			print('Out of Range')		
+		except ValueError:
+			print('Out of Range!')
 
 	def is_board_full(self):
 		for i in range(self.width):
-			if not self.board[0][i]:
+			if self.column_counter[i] != self.height:
 				return False
 
 		print('No more free spaces!\nGAME OVER MAN!!!\n')
 		return True
-
-	def is_valid_location(self, col):
-		if self.board[0][col]:
-			print('No more space in current column.\n')
-			return False
-		else:
-			return True
 
 	def choose_column(self):
 		# Within this loop we impose that the player must provide a valid input (i.e. an int within the range of the game's board matrix)
@@ -54,27 +48,20 @@ class BoardSetup:
 						print('Out Of Bounds! Please choose a value between {} and {}!\n'.format(0, self.width-1))
 					else:
 						break
-				except ValueError:
+				except TypeError:
 					print("{} was not a number, please use a valid input.\n".format(player_input))		
 		return col
 
-	def get_next_open_row(self, col): # TODO: replace with instance variable self.column_counter and keep track of values
-		if self.is_valid_location(col):
-			for r in range(self.height)[::-1]:
-				if not self.board[r][col]:
-					return r
-		else:
-			return -1
-
 	def drop_disk(self, player, col):
 		while True:
-			row = self.get_next_open_row(col)
-			if row == -1:
-				print('Please choose another column\n')
+			if self.column_counter[col] >= self.height:
+				print('No more space in current column!\nPlease choose another column\n')
 				col = self.choose_column()
 			else:
 				break
+		row = self.height-self.column_counter[col]-1
 		self.board[row][col] = player.colour
+		self.column_counter[col] += 1
 		
 		if WinningMove.is_win(self.board, row, col):
 			print('\nCongratulations {}!!!\nVictory is yours!!!\n'.format(player.name))
